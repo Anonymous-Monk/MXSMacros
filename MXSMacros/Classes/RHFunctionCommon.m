@@ -261,7 +261,7 @@ RH_EXTERN NSString* rhDecodeObjectFromDic(NSDictionary *dic, NSString *key)
     }
     id temp = [dic objectForKey:key];
     NSString *value = @"";
-    if (kObjectIsEmpty(temp))   {
+    if (rhObjectIsEmpty(temp))   {
         if ([temp isKindOfClass:[NSString class]]) {
             value = temp;
         }else if([temp isKindOfClass:[NSNumber class]]){
@@ -279,7 +279,7 @@ RH_EXTERN NSString* rhDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,N
     }
     id temp = [dic objectForKey:key];
     NSString *value = defaultStr;
-    if (kObjectIsEmpty(temp))   {
+    if (rhObjectIsEmpty(temp))   {
         if ([temp isKindOfClass:[NSString class]]) {
             value = temp;
         }else if([temp isKindOfClass:[NSNumber class]]){
@@ -293,7 +293,7 @@ RH_EXTERN NSString* rhDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,N
 
 RH_EXTERN id rhDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index)
 {
-    if (kArrayIsEmpty(arr)) {
+    if (rhArrayIsEmpty(arr)) {
         return nil;
     }
     
@@ -309,7 +309,7 @@ RH_EXTERN id rhDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index)
 
 RH_EXTERN NSString* rhDecodeStringFromDic(NSDictionary *dic, NSString *key)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return nil;
     }
@@ -330,7 +330,7 @@ RH_EXTERN NSString* rhDecodeStringFromDic(NSDictionary *dic, NSString *key)
 
 RH_EXTERN NSNumber* rhDecodeNumberFromDic(NSDictionary *dic, NSString *key)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return nil;
     }
@@ -348,7 +348,7 @@ RH_EXTERN NSNumber* rhDecodeNumberFromDic(NSDictionary *dic, NSString *key)
 
 RH_EXTERN NSDictionary * rhDecodeDicFromDic(NSDictionary *dic, NSString *key)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return nil;
     }
@@ -372,7 +372,7 @@ RH_EXTERN NSArray      * rhDecodeArrayFromDic(NSDictionary *dic, NSString *key)
 
 RH_EXTERN NSArray      * rhDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NSString *key, id(^parseBlock)(NSDictionary *innerDic))
 {
-    NSArray *tempList = rhDecodeArrayFromDic(dic, rhey);
+    NSArray *tempList = rhDecodeArrayFromDic(dic, key);
     if ([tempList count])
     {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:[tempList count]];
@@ -393,17 +393,17 @@ RH_EXTERN NSArray      * rhDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, 
 
 RH_EXTERN void rhEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return;
     }
     
-    if (kStringIsEmpty(object))
+    if (rhStringIsEmpty(object))
     {
         return;
     }
     
-    if (kStringIsEmpty(key))
+    if (rhStringIsEmpty(key))
     {
         return;
     }
@@ -413,12 +413,12 @@ RH_EXTERN void rhEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *o
 
 RH_EXTERN void rhEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object)
 {
-    if (kArrayIsEmpty(arr))
+    if (rhArrayIsEmpty(arr))
     {
         return;
     }
     
-    if (kObjectIsEmpty(object))
+    if (rhObjectIsEmpty(object))
     {
         return;
     }
@@ -428,17 +428,17 @@ RH_EXTERN void rhEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object)
 
 RH_EXTERN void rhEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key,NSString * defaultStr)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return;
     }
     
-    if (kStringIsEmpty(object))
+    if (rhStringIsEmpty(object))
     {
         object = defaultStr;
     }
     
-    if (kStringIsEmpty(key))
+    if (rhStringIsEmpty(key))
     {
         return;
     }
@@ -448,15 +448,15 @@ RH_EXTERN void rhEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *o
 
 RH_EXTERN void rhEncodeUnEmptyObjctToDic(NSMutableDictionary *dic,NSObject *object, NSString *key)
 {
-    if (kDictIsEmpty(dic))
+    if (rhDictIsEmpty(dic))
     {
         return;
     }
-    if (kObjectIsEmpty(object))
+    if (rhObjectIsEmpty(object))
     {
         return;
     }
-    if (kStringIsEmpty(key))
+    if (rhStringIsEmpty(key))
     {
         return;
     }

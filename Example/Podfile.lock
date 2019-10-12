@@ -1,5 +1,5 @@
 PODS:
-  - MXSMacros (0.1.0)
+  - MXSMacros (1.0.3)
 
 DEPENDENCIES:
   - MXSMacros (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MXSMacros: 18e0b475afd9399289c954af02a5869cbc553eb9
+  MXSMacros: 24a868f3c72a1eeea08796534ae877b38e2a3d85
 
 PODFILE CHECKSUM: 4532f6bdc99f2b676fdc318dedf99aa3988d0767
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.5

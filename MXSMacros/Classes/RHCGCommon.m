@@ -64,7 +64,7 @@ RH_EXTERN CGFloat rhAdaptedHeight(CGFloat height) {
 
 
 RH_EXTERN UIFont * rhAdaptedFontSize(CGFloat fontSize) {
-    return rhCHINESE_SYSTEM(kAdaptedWidth(fontSize));
+    return rhCHINESE_SYSTEM(rhAdaptedWidth(fontSize));
 }
 
 
@@ -117,8 +117,8 @@ RH_EXTERN CGContextRef RHCGContextCreateARGBBitmapContext(CGSize size, BOOL opaq
     
     //pre-multiplied ARGB, 8-bits per component
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    CGImageAlphaInfo alphaInfo = (opaque ? rhCGImageAlphaNoneSkipFirst : rhCGImageAlphaPremultipliedFirst);
-    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, rhCGBitmapByteOrderDefault | alphaInfo);
+    CGImageAlphaInfo alphaInfo = (opaque ? kCGImageAlphaNoneSkipFirst : kCGImageAlphaPremultipliedFirst);
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGBitmapByteOrderDefault | alphaInfo);
     CGColorSpaceRelease(space);
     if (context) {
         CGContextTranslateCTM(context, 0, height);
@@ -134,8 +134,8 @@ RH_EXTERN CGContextRef RHCGContextCreateGrayBitmapContext(CGSize size, CGFloat s
     
     //DeviceGray, 8-bits per component
     CGColorSpaceRef space = CGColorSpaceCreateDeviceGray();
-    CGImageAlphaInfo alphaInfo = rhCGImageAlphaNone;
-    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, rhCGBitmapByteOrderDefault | alphaInfo);
+    CGImageAlphaInfo alphaInfo = kCGImageAlphaNone;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGBitmapByteOrderDefault | alphaInfo);
     CGColorSpaceRelease(space);
     if (context) {
         CGContextTranslateCTM(context, 0, height);
@@ -182,18 +182,18 @@ RH_EXTERN UIViewContentMode RHCAGravityToUIViewContentMode(NSString *gravity) {
     static NSDictionary *dic;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dic = @{ rhCAGravityCenter:@(UIViewContentModeCenter),
-                 rhCAGravityTop:@(UIViewContentModeTop),
-                 rhCAGravityBottom:@(UIViewContentModeBottom),
-                 rhCAGravityLeft:@(UIViewContentModeLeft),
-                 rhCAGravityRight:@(UIViewContentModeRight),
-                 rhCAGravityTopLeft:@(UIViewContentModeTopLeft),
-                 rhCAGravityTopRight:@(UIViewContentModeTopRight),
-                 rhCAGravityBottomLeft:@(UIViewContentModeBottomLeft),
-                 rhCAGravityBottomRight:@(UIViewContentModeBottomRight),
-                 rhCAGravityResize:@(UIViewContentModeScaleToFill),
-                 rhCAGravityResizeAspect:@(UIViewContentModeScaleAspectFit),
-                 rhCAGravityResizeAspectFill:@(UIViewContentModeScaleAspectFill) };
+        dic = @{ kCAGravityCenter:@(UIViewContentModeCenter),
+                 kCAGravityTop:@(UIViewContentModeTop),
+                 kCAGravityBottom:@(UIViewContentModeBottom),
+                 kCAGravityLeft:@(UIViewContentModeLeft),
+                 kCAGravityRight:@(UIViewContentModeRight),
+                 kCAGravityTopLeft:@(UIViewContentModeTopLeft),
+                 kCAGravityTopRight:@(UIViewContentModeTopRight),
+                 kCAGravityBottomLeft:@(UIViewContentModeBottomLeft),
+                 kCAGravityBottomRight:@(UIViewContentModeBottomRight),
+                 kCAGravityResize:@(UIViewContentModeScaleToFill),
+                 kCAGravityResizeAspect:@(UIViewContentModeScaleAspectFit),
+                 kCAGravityResizeAspectFill:@(UIViewContentModeScaleAspectFill) };
     });
     if (!gravity) return UIViewContentModeScaleToFill;
     return (UIViewContentMode)((NSNumber *)dic[gravity]).integerValue;
@@ -201,20 +201,20 @@ RH_EXTERN UIViewContentMode RHCAGravityToUIViewContentMode(NSString *gravity) {
 
 RH_EXTERN NSString * RHUIViewContentModeToCAGravity(UIViewContentMode contentMode) {
     switch (contentMode) {
-        case UIViewContentModeScaleToFill: return rhCAGravityResize;
-        case UIViewContentModeScaleAspectFit: return rhCAGravityResizeAspect;
-        case UIViewContentModeScaleAspectFill: return rhCAGravityResizeAspectFill;
-        case UIViewContentModeRedraw: return rhCAGravityResize;
-        case UIViewContentModeCenter: return rhCAGravityCenter;
-        case UIViewContentModeTop: return rhCAGravityTop;
-        case UIViewContentModeBottom: return rhCAGravityBottom;
-        case UIViewContentModeLeft: return rhCAGravityLeft;
-        case UIViewContentModeRight: return rhCAGravityRight;
-        case UIViewContentModeTopLeft: return rhCAGravityTopLeft;
-        case UIViewContentModeTopRight: return rhCAGravityTopRight;
-        case UIViewContentModeBottomLeft: return rhCAGravityBottomLeft;
-        case UIViewContentModeBottomRight: return rhCAGravityBottomRight;
-        default: return rhCAGravityResize;
+        case UIViewContentModeScaleToFill: return kCAGravityResize;
+        case UIViewContentModeScaleAspectFit: return kCAGravityResizeAspect;
+        case UIViewContentModeScaleAspectFill: return kCAGravityResizeAspectFill;
+        case UIViewContentModeRedraw: return kCAGravityResize;
+        case UIViewContentModeCenter: return kCAGravityCenter;
+        case UIViewContentModeTop: return kCAGravityTop;
+        case UIViewContentModeBottom: return kCAGravityBottom;
+        case UIViewContentModeLeft: return kCAGravityLeft;
+        case UIViewContentModeRight: return kCAGravityRight;
+        case UIViewContentModeTopLeft: return kCAGravityTopLeft;
+        case UIViewContentModeTopRight: return kCAGravityTopRight;
+        case UIViewContentModeBottomLeft: return kCAGravityBottomLeft;
+        case UIViewContentModeBottomRight: return kCAGravityBottomRight;
+        default: return kCAGravityResize;
     }
 }
 
