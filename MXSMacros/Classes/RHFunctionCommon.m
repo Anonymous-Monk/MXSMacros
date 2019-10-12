@@ -166,17 +166,17 @@ RH_EXTERN NSDate *_RHCompileTime(const char *data, const char *time) {
 
 
 #pragma mark - 随机数
-RH_EXTERN NSInteger kRandomNumber(NSInteger i) {
+RH_EXTERN NSInteger rhRandomNumber(NSInteger i) {
     return arc4random() % i;
 }
 
 #pragma mark 字符串是否为空
-RH_EXTERN BOOL kStringIsEmpty(NSString *string) {
+RH_EXTERN BOOL rhStringIsEmpty(NSString *string) {
     return ([string isKindOfClass:[NSNull class]] || string == nil || [string length] < 1);
 }
 
 #pragma mark - 判断字符串是否含有空格
-RH_EXTERN BOOL kStringIsBlank(NSString *string) {
+RH_EXTERN BOOL rhStringIsBlank(NSString *string) {
     NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (NSInteger i = 0; i < string.length; ++i) {
         unichar c = [string characterAtIndex:i];
@@ -188,17 +188,17 @@ RH_EXTERN BOOL kStringIsBlank(NSString *string) {
 }
 
 #pragma mark 数组是否为空
-RH_EXTERN BOOL kArrayIsEmpty(NSArray *array) {
+RH_EXTERN BOOL rhArrayIsEmpty(NSArray *array) {
     return (array == nil || [array isKindOfClass:[NSNull class]] || array.count == 0);
 }
 
 #pragma mark 字典是否为空
-RH_EXTERN BOOL kDictIsEmpty(NSDictionary *dic) {
+RH_EXTERN BOOL rhDictIsEmpty(NSDictionary *dic) {
     return (dic == nil || [dic isKindOfClass:[NSNull class]] || dic.allKeys == 0);
 }
 
 #pragma mark 字典是否为空
-RH_EXTERN BOOL kObjectIsEmpty(id object) {
+RH_EXTERN BOOL rhObjectIsEmpty(id object) {
     return (object == nil
             || [object isKindOfClass:[NSNull class]]
             || ([object respondsToSelector:@selector(length)] && [(NSData *)object length] == 0)
@@ -208,24 +208,24 @@ RH_EXTERN BOOL kObjectIsEmpty(id object) {
 
 
 #pragma mark - 从本地文件读取数据
-RH_EXTERN NSData* kGetDataWithContentsOfFile(NSString *fileName, NSString *type){
+RH_EXTERN NSData* rhGetDataWithContentsOfFile(NSString *fileName, NSString *type){
     return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:fileName ofType:type]];
 }
 
 #pragma mark - json 解析 data 数据
-RH_EXTERN NSDictionary* kGetDictionaryWithData(NSData *data) {
+RH_EXTERN NSDictionary* rhGetDictionaryWithData(NSData *data) {
     return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 }
 
 #pragma mark json 解析 ，直接从本地文件读取 json 数据，返回 NSDictionary
 
-RH_EXTERN NSDictionary *kGetDictionaryWithContentsOfFile(NSString *fileName, NSString *type){
+RH_EXTERN NSDictionary * rhGetDictionaryWithContentsOfFile(NSString *fileName, NSString *type){
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:fileName ofType:type]];
     return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 }
 
 #pragma mark json 解析 ，json string 转 NSDictionary，返回 NSDictionary
-RH_EXTERN NSDictionary *kGetDictionaryWithJsonString(NSString *jsonString){
+RH_EXTERN NSDictionary * rhGetDictionaryWithJsonString(NSString *jsonString){
     if (jsonString == nil)
     {
         return nil;
@@ -254,7 +254,7 @@ RH_EXTERN NSDictionary *kGetDictionaryWithJsonString(NSString *jsonString){
 
 
 #pragma mark - Decode
-RH_EXTERN NSString* kDecodeObjectFromDic(NSDictionary *dic, NSString *key)
+RH_EXTERN NSString* rhDecodeObjectFromDic(NSDictionary *dic, NSString *key)
 {
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return nil;
@@ -272,7 +272,7 @@ RH_EXTERN NSString* kDecodeObjectFromDic(NSDictionary *dic, NSString *key)
     return nil;
 }
 
-RH_EXTERN NSString* kDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,NSString * defaultStr)
+RH_EXTERN NSString* rhDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,NSString * defaultStr)
 {
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return nil;
@@ -291,7 +291,7 @@ RH_EXTERN NSString* kDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,NS
     return value;
 }
 
-RH_EXTERN id kDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index)
+RH_EXTERN id rhDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index)
 {
     if (kArrayIsEmpty(arr)) {
         return nil;
@@ -307,7 +307,7 @@ RH_EXTERN id kDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index)
 
 
 
-RH_EXTERN NSString* kDecodeStringFromDic(NSDictionary *dic, NSString *key)
+RH_EXTERN NSString* rhDecodeStringFromDic(NSDictionary *dic, NSString *key)
 {
     if (kDictIsEmpty(dic))
     {
@@ -328,7 +328,7 @@ RH_EXTERN NSString* kDecodeStringFromDic(NSDictionary *dic, NSString *key)
     return nil;
 }
 
-RH_EXTERN NSNumber* kDecodeNumberFromDic(NSDictionary *dic, NSString *key)
+RH_EXTERN NSNumber* rhDecodeNumberFromDic(NSDictionary *dic, NSString *key)
 {
     if (kDictIsEmpty(dic))
     {
@@ -346,7 +346,7 @@ RH_EXTERN NSNumber* kDecodeNumberFromDic(NSDictionary *dic, NSString *key)
     return nil;
 }
 
-RH_EXTERN NSDictionary *kDecodeDicFromDic(NSDictionary *dic, NSString *key)
+RH_EXTERN NSDictionary * rhDecodeDicFromDic(NSDictionary *dic, NSString *key)
 {
     if (kDictIsEmpty(dic))
     {
@@ -360,7 +360,7 @@ RH_EXTERN NSDictionary *kDecodeDicFromDic(NSDictionary *dic, NSString *key)
     return nil;
 }
 
-RH_EXTERN NSArray      *kDecodeArrayFromDic(NSDictionary *dic, NSString *key)
+RH_EXTERN NSArray      * rhDecodeArrayFromDic(NSDictionary *dic, NSString *key)
 {
     id temp = [dic objectForKey:key];
     if ([temp isKindOfClass:[NSArray class]])
@@ -370,9 +370,9 @@ RH_EXTERN NSArray      *kDecodeArrayFromDic(NSDictionary *dic, NSString *key)
     return nil;
 }
 
-RH_EXTERN NSArray      *kDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NSString *key, id(^parseBlock)(NSDictionary *innerDic))
+RH_EXTERN NSArray      * rhDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NSString *key, id(^parseBlock)(NSDictionary *innerDic))
 {
-    NSArray *tempList = kDecodeArrayFromDic(dic, key);
+    NSArray *tempList = rhDecodeArrayFromDic(dic, rhey);
     if ([tempList count])
     {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:[tempList count]];
@@ -391,7 +391,7 @@ RH_EXTERN NSArray      *kDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NS
 
 #pragma mark - Encode
 
-RH_EXTERN void kEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key)
+RH_EXTERN void rhEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key)
 {
     if (kDictIsEmpty(dic))
     {
@@ -411,7 +411,7 @@ RH_EXTERN void kEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *ob
     [dic setObject:object forKey:key];
 }
 
-RH_EXTERN void kEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object)
+RH_EXTERN void rhEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object)
 {
     if (kArrayIsEmpty(arr))
     {
@@ -426,7 +426,7 @@ RH_EXTERN void kEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object)
     [arr addObject:object];
 }
 
-RH_EXTERN void kEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key,NSString * defaultStr)
+RH_EXTERN void rhEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key,NSString * defaultStr)
 {
     if (kDictIsEmpty(dic))
     {
@@ -446,7 +446,7 @@ RH_EXTERN void kEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *ob
     [dic setObject:object forKey:key];
 }
 
-RH_EXTERN void kEncodeUnEmptyObjctToDic(NSMutableDictionary *dic,NSObject *object, NSString *key)
+RH_EXTERN void rhEncodeUnEmptyObjctToDic(NSMutableDictionary *dic,NSObject *object, NSString *key)
 {
     if (kDictIsEmpty(dic))
     {

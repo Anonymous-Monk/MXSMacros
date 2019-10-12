@@ -10,7 +10,7 @@
 #import <Accelerate/Accelerate.h>
 #import "RHSystemCommon.h"
 
-RH_EXTERN CGFloat kScreenScale() {
+RH_EXTERN CGFloat rhScreenScale() {
     static CGFloat scale;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -19,11 +19,11 @@ RH_EXTERN CGFloat kScreenScale() {
     return scale;
 }
 
-RH_EXTERN CGRect kScrentBounds(void) {
+RH_EXTERN CGRect rhScrentBounds(void) {
     return [[UIScreen mainScreen] bounds];
 }
 
-RH_EXTERN CGSize kScreenSize() {
+RH_EXTERN CGSize rhScreenSize() {
     static CGSize size;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -38,59 +38,59 @@ RH_EXTERN CGSize kScreenSize() {
 }
 
 
-RH_EXTERN CGFloat kScreenWidth(void) {
+RH_EXTERN CGFloat rhScreenWidth(void) {
     return (([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height;
 }
-RH_EXTERN CGFloat kScreenHeight(void) {
+RH_EXTERN CGFloat rhScreenHeight(void) {
     return ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width);
 }
 
 
-RH_EXTERN CGFloat kScreenWidthRatio(void) {
-    return kScreenWidth() / 375.0;
+RH_EXTERN CGFloat rhScreenWidthRatio(void) {
+    return rhScreenWidth() / 375.0;
 }
 
-RH_EXTERN CGFloat kScreenHeightRatio(void) {
-    return kScreenHeight() / 667.0;
+RH_EXTERN CGFloat rhScreenHeightRatio(void) {
+    return rhScreenHeight() / 667.0;
 }
 
-RH_EXTERN CGFloat kAdaptedWidth(CGFloat width) {
-    return (CGFloat)ceilf(width) * kScreenWidthRatio();
+RH_EXTERN CGFloat rhAdaptedWidth(CGFloat width) {
+    return (CGFloat)ceilf(width) * rhScreenWidthRatio();
 }
 
-RH_EXTERN CGFloat kAdaptedHeight(CGFloat height) {
-    return (CGFloat)ceilf(height) * kScreenHeightRatio();
+RH_EXTERN CGFloat rhAdaptedHeight(CGFloat height) {
+    return (CGFloat)ceilf(height) * rhScreenHeightRatio();
 }
 
 
-RH_EXTERN UIFont *kAdaptedFontSize(CGFloat fontSize) {
-    return kCHINESE_SYSTEM(kAdaptedWidth(fontSize));
+RH_EXTERN UIFont * rhAdaptedFontSize(CGFloat fontSize) {
+    return rhCHINESE_SYSTEM(kAdaptedWidth(fontSize));
 }
 
 
 //导航栏高度
-RH_EXTERN CGFloat kNaviBarHeight(void) {
+RH_EXTERN CGFloat rhNaviBarHeight(void) {
     return 44.0;
 }
 
 //状态栏高度
-RH_EXTERN CGFloat kStatusBarHeight(void) {
+RH_EXTERN CGFloat rhStatusBarHeight(void) {
     return [[UIApplication sharedApplication] statusBarFrame].size.height;
 }
 
 //导航栏与状态栏高度
-RH_EXTERN CGFloat kStatusBarAndNavigationBarHeight(void) {
-    return kNaviBarHeight() + kStatusBarHeight();
+RH_EXTERN CGFloat rhStatusBarAndNavigationBarHeight(void) {
+    return rhNaviBarHeight() + rhStatusBarHeight();
 }
 
 //tabbar高度
-RH_EXTERN CGFloat kTabbarHeight(void) {
+RH_EXTERN CGFloat rhTabbarHeight(void) {
     return [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49;
 }
 
 
 // iOS 11.0 的 view.safeAreaInsets
-RH_EXTERN UIEdgeInsets kViewSafeAreaInsets(UIView *view) {
+RH_EXTERN UIEdgeInsets rhViewSafeAreaInsets(UIView *view) {
     UIEdgeInsets i;
     if(@available(iOS 11.0, *)) {
         i = view.safeAreaInsets;
@@ -101,7 +101,7 @@ RH_EXTERN UIEdgeInsets kViewSafeAreaInsets(UIView *view) {
 }
 
 // iOS 11 一下的 scrollview 的适配
-RH_EXTERN void kAdjustsScrollViewInsetNever(UIViewController *controller, UIScrollView *view) {
+RH_EXTERN void rhAdjustsScrollViewInsetNever(UIViewController *controller, UIScrollView *view) {
     if(@available(iOS 11.0, *)) {
         view.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else if([controller isKindOfClass:[UIViewController class]]) {
@@ -117,8 +117,8 @@ RH_EXTERN CGContextRef RHCGContextCreateARGBBitmapContext(CGSize size, BOOL opaq
     
     //pre-multiplied ARGB, 8-bits per component
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    CGImageAlphaInfo alphaInfo = (opaque ? kCGImageAlphaNoneSkipFirst : kCGImageAlphaPremultipliedFirst);
-    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGBitmapByteOrderDefault | alphaInfo);
+    CGImageAlphaInfo alphaInfo = (opaque ? rhCGImageAlphaNoneSkipFirst : rhCGImageAlphaPremultipliedFirst);
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, rhCGBitmapByteOrderDefault | alphaInfo);
     CGColorSpaceRelease(space);
     if (context) {
         CGContextTranslateCTM(context, 0, height);
@@ -134,8 +134,8 @@ RH_EXTERN CGContextRef RHCGContextCreateGrayBitmapContext(CGSize size, CGFloat s
     
     //DeviceGray, 8-bits per component
     CGColorSpaceRef space = CGColorSpaceCreateDeviceGray();
-    CGImageAlphaInfo alphaInfo = kCGImageAlphaNone;
-    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGBitmapByteOrderDefault | alphaInfo);
+    CGImageAlphaInfo alphaInfo = rhCGImageAlphaNone;
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, rhCGBitmapByteOrderDefault | alphaInfo);
     CGColorSpaceRelease(space);
     if (context) {
         CGContextTranslateCTM(context, 0, height);
@@ -178,77 +178,43 @@ static int matrix_invert(__CLPK_integer N, double *matrix) {
     return error;
 }
 
-RH_EXTERN CGAffineTransform RHCGAffineTransformGetFromPoints(CGPoint before[3], CGPoint after[3]) {
-    if (before == NULL || after == NULL) return CGAffineTransformIdentity;
-    
-    CGPoint p1, p2, p3, q1, q2, q3;
-    p1 = before[0]; p2 = before[1]; p3 = before[2];
-    q1 =  after[0]; q2 =  after[1]; q3 =  after[2];
-    
-    double A[36];
-    A[ 0] = p1.x; A[ 1] = p1.y; A[ 2] = 0; A[ 3] = 0; A[ 4] = 1; A[ 5] = 0;
-    A[ 6] = 0; A[ 7] = 0; A[ 8] = p1.x; A[ 9] = p1.y; A[10] = 0; A[11] = 1;
-    A[12] = p2.x; A[13] = p2.y; A[14] = 0; A[15] = 0; A[16] = 1; A[17] = 0;
-    A[18] = 0; A[19] = 0; A[20] = p2.x; A[21] = p2.y; A[22] = 0; A[23] = 1;
-    A[24] = p3.x; A[25] = p3.y; A[26] = 0; A[27] = 0; A[28] = 1; A[29] = 0;
-    A[30] = 0; A[31] = 0; A[32] = p3.x; A[33] = p3.y; A[34] = 0; A[35] = 1;
-    
-    int error = matrix_invert(6, A);
-    if (error) return CGAffineTransformIdentity;
-    
-    double B[6];
-    B[0] = q1.x; B[1] = q1.y; B[2] = q2.x; B[3] = q2.y; B[4] = q3.x; B[5] = q3.y;
-    
-    double M[6];
-    M[0] = A[ 0] * B[0] + A[ 1] * B[1] + A[ 2] * B[2] + A[ 3] * B[3] + A[ 4] * B[4] + A[ 5] * B[5];
-    M[1] = A[ 6] * B[0] + A[ 7] * B[1] + A[ 8] * B[2] + A[ 9] * B[3] + A[10] * B[4] + A[11] * B[5];
-    M[2] = A[12] * B[0] + A[13] * B[1] + A[14] * B[2] + A[15] * B[3] + A[16] * B[4] + A[17] * B[5];
-    M[3] = A[18] * B[0] + A[19] * B[1] + A[20] * B[2] + A[21] * B[3] + A[22] * B[4] + A[23] * B[5];
-    M[4] = A[24] * B[0] + A[25] * B[1] + A[26] * B[2] + A[27] * B[3] + A[28] * B[4] + A[29] * B[5];
-    M[5] = A[30] * B[0] + A[31] * B[1] + A[32] * B[2] + A[33] * B[3] + A[34] * B[4] + A[35] * B[5];
-    
-    CGAffineTransform transform = CGAffineTransformMake(M[0], M[2], M[1], M[3], M[4], M[5]);
-    return transform;
-}
-
-
 RH_EXTERN UIViewContentMode RHCAGravityToUIViewContentMode(NSString *gravity) {
     static NSDictionary *dic;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dic = @{ kCAGravityCenter:@(UIViewContentModeCenter),
-                 kCAGravityTop:@(UIViewContentModeTop),
-                 kCAGravityBottom:@(UIViewContentModeBottom),
-                 kCAGravityLeft:@(UIViewContentModeLeft),
-                 kCAGravityRight:@(UIViewContentModeRight),
-                 kCAGravityTopLeft:@(UIViewContentModeTopLeft),
-                 kCAGravityTopRight:@(UIViewContentModeTopRight),
-                 kCAGravityBottomLeft:@(UIViewContentModeBottomLeft),
-                 kCAGravityBottomRight:@(UIViewContentModeBottomRight),
-                 kCAGravityResize:@(UIViewContentModeScaleToFill),
-                 kCAGravityResizeAspect:@(UIViewContentModeScaleAspectFit),
-                 kCAGravityResizeAspectFill:@(UIViewContentModeScaleAspectFill) };
+        dic = @{ rhCAGravityCenter:@(UIViewContentModeCenter),
+                 rhCAGravityTop:@(UIViewContentModeTop),
+                 rhCAGravityBottom:@(UIViewContentModeBottom),
+                 rhCAGravityLeft:@(UIViewContentModeLeft),
+                 rhCAGravityRight:@(UIViewContentModeRight),
+                 rhCAGravityTopLeft:@(UIViewContentModeTopLeft),
+                 rhCAGravityTopRight:@(UIViewContentModeTopRight),
+                 rhCAGravityBottomLeft:@(UIViewContentModeBottomLeft),
+                 rhCAGravityBottomRight:@(UIViewContentModeBottomRight),
+                 rhCAGravityResize:@(UIViewContentModeScaleToFill),
+                 rhCAGravityResizeAspect:@(UIViewContentModeScaleAspectFit),
+                 rhCAGravityResizeAspectFill:@(UIViewContentModeScaleAspectFill) };
     });
     if (!gravity) return UIViewContentModeScaleToFill;
     return (UIViewContentMode)((NSNumber *)dic[gravity]).integerValue;
 }
 
-RH_EXTERN NSString *RHUIViewContentModeToCAGravity(UIViewContentMode contentMode) {
+RH_EXTERN NSString * RHUIViewContentModeToCAGravity(UIViewContentMode contentMode) {
     switch (contentMode) {
-        case UIViewContentModeScaleToFill: return kCAGravityResize;
-        case UIViewContentModeScaleAspectFit: return kCAGravityResizeAspect;
-        case UIViewContentModeScaleAspectFill: return kCAGravityResizeAspectFill;
-        case UIViewContentModeRedraw: return kCAGravityResize;
-        case UIViewContentModeCenter: return kCAGravityCenter;
-        case UIViewContentModeTop: return kCAGravityTop;
-        case UIViewContentModeBottom: return kCAGravityBottom;
-        case UIViewContentModeLeft: return kCAGravityLeft;
-        case UIViewContentModeRight: return kCAGravityRight;
-        case UIViewContentModeTopLeft: return kCAGravityTopLeft;
-        case UIViewContentModeTopRight: return kCAGravityTopRight;
-        case UIViewContentModeBottomLeft: return kCAGravityBottomLeft;
-        case UIViewContentModeBottomRight: return kCAGravityBottomRight;
-        default: return kCAGravityResize;
+        case UIViewContentModeScaleToFill: return rhCAGravityResize;
+        case UIViewContentModeScaleAspectFit: return rhCAGravityResizeAspect;
+        case UIViewContentModeScaleAspectFill: return rhCAGravityResizeAspectFill;
+        case UIViewContentModeRedraw: return rhCAGravityResize;
+        case UIViewContentModeCenter: return rhCAGravityCenter;
+        case UIViewContentModeTop: return rhCAGravityTop;
+        case UIViewContentModeBottom: return rhCAGravityBottom;
+        case UIViewContentModeLeft: return rhCAGravityLeft;
+        case UIViewContentModeRight: return rhCAGravityRight;
+        case UIViewContentModeTopLeft: return rhCAGravityTopLeft;
+        case UIViewContentModeTopRight: return rhCAGravityTopRight;
+        case UIViewContentModeBottomLeft: return rhCAGravityBottomLeft;
+        case UIViewContentModeBottomRight: return rhCAGravityBottomRight;
+        default: return rhCAGravityResize;
     }
 }
 

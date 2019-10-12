@@ -106,68 +106,68 @@ RH_EXTERN NSDate *_RHCompileTime(const char *data, const char *time);
  arc4random() 是一个真正的伪随机算法，不需要生成随机种子，因为第一次调用的时候就会自动生成。而且范围是rand()的两倍。在iPhone中，RAND_MAX是0x7fffffff (2147483647)，而arc4random()返回的最大值则是 0x100000000 (4294967296)。
  精确度比较：arc4random() > random() > rand()。
  */
-RH_EXTERN NSInteger kRandomNumber(NSInteger i);
+RH_EXTERN NSInteger rhRandomNumber(NSInteger i);
 
 #pragma mark - 判断空类型
 
 #pragma mark 字符串是否为空
-RH_EXTERN BOOL kStringIsEmpty(NSString *string);
+RH_EXTERN BOOL rhStringIsEmpty(NSString *string);
 
 #pragma mark 判断字符串是否含有空格
-RH_EXTERN BOOL kStringIsBlank(NSString *string);
+RH_EXTERN BOOL rhStringIsBlank(NSString *string);
 
 #pragma mark 数组是否为空
-RH_EXTERN BOOL kArrayIsEmpty(NSArray *array);
+RH_EXTERN BOOL rhArrayIsEmpty(NSArray *array);
 
 #pragma mark 字典是否为空
-RH_EXTERN BOOL kDictIsEmpty(NSDictionary *dic);
+RH_EXTERN BOOL rhDictIsEmpty(NSDictionary *dic);
 
 #pragma mark 字典是否为空
-RH_EXTERN BOOL kObjectIsEmpty(id _object);
+RH_EXTERN BOOL rhObjectIsEmpty(id _object);
 
 
 
 
 #pragma mark - 从本地文件读取数据
-RH_EXTERN NSData *kGetDataWithContentsOfFile(NSString *fileName, NSString *type);
+RH_EXTERN NSData * rhGetDataWithContentsOfFile(NSString *fileName, NSString *type);
 
 #pragma mark - json data
 
 #pragma mark json 解析 data 数据
-RH_EXTERN NSDictionary *kGetDictionaryWithData(NSData *data);
+RH_EXTERN NSDictionary * rhGetDictionaryWithData(NSData *data);
 
 #pragma mark json 解析 ，直接从本地文件读取 json 数据，返回 NSDictionary
-RH_EXTERN NSDictionary *kGetDictionaryWithContentsOfFile(NSString *fileName, NSString *type);
+RH_EXTERN NSDictionary * rhGetDictionaryWithContentsOfFile(NSString *fileName, NSString *type);
 
 #pragma mark json 解析 ，json string 转 NSDictionary，返回 NSDictionary
-RH_EXTERN NSDictionary *kGetDictionaryWithJsonString(NSString *jsonString);
+RH_EXTERN NSDictionary * rhGetDictionaryWithJsonString(NSString *jsonString);
 
 #pragma mark - Encode Decode 方法
 // NSDictionary -> NSString
-RH_EXTERN NSString* kDecodeObjectFromDic(NSDictionary *dic, NSString *key);
+RH_EXTERN NSString* rhDecodeObjectFromDic(NSDictionary *dic, NSString *key);
 // NSArray + index -> id
-RH_EXTERN id        kDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index);
+RH_EXTERN id        rhDecodeSafeObjectAtIndex(NSArray *arr, NSInteger index);
 // NSDictionary -> NSString
-RH_EXTERN NSString     * kDecodeStringFromDic(NSDictionary *dic, NSString *key);
+RH_EXTERN NSString     * rhDecodeStringFromDic(NSDictionary *dic, NSString *key);
 // NSDictionary -> NSString ？ NSString ： defaultStr
-RH_EXTERN NSString* kDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,NSString * defaultStr);
+RH_EXTERN NSString* rhDecodeDefaultStrFromDic(NSDictionary *dic, NSString *key,NSString * defaultStr);
 // NSDictionary -> NSNumber
-RH_EXTERN NSNumber     * kDecodeNumberFromDic(NSDictionary *dic, NSString *key);
+RH_EXTERN NSNumber     * rhDecodeNumberFromDic(NSDictionary *dic, NSString *key);
 // NSDictionary -> NSDictionary
-RH_EXTERN NSDictionary *kDecodeDicFromDic(NSDictionary *dic, NSString *key);
+RH_EXTERN NSDictionary * rhDecodeDicFromDic(NSDictionary *dic, NSString *key);
 // NSDictionary -> NSArray
-RH_EXTERN NSArray      *kDecodeArrayFromDic(NSDictionary *dic, NSString *key);
-RH_EXTERN NSArray      *kDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NSString *key, id(^parseBlock)(NSDictionary *innerDic));
+RH_EXTERN NSArray      * rhDecodeArrayFromDic(NSDictionary *dic, NSString *key);
+RH_EXTERN NSArray      * rhDecodeArrayFromDicUsingParseBlock(NSDictionary *dic, NSString *key, id(^parseBlock)(NSDictionary *innerDic));
 
 #pragma mark - Encode Decode 方法
 // (nonull Key: nonull NSString) -> NSMutableDictionary
-RH_EXTERN void kEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key);
+RH_EXTERN void rhEncodeUnEmptyStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key);
 // nonull objec -> NSMutableArray
-RH_EXTERN void kEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object);
-// (nonull (Key ? key : defaultStr) : nonull Value) -> NSMutableDictionary
-RH_EXTERN void kEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key,NSString * defaultStr);
+RH_EXTERN void rhEncodeUnEmptyObjctToArray(NSMutableArray *arr,id object);
+// (nonull (Key ? rhey : defaultStr) : nonull Value) -> NSMutableDictionary
+RH_EXTERN void rhEncodeDefaultStrObjctToDic(NSMutableDictionary *dic,NSString *object, NSString *key,NSString * defaultStr);
 // (nonull Key: nonull object) -> NSMutableDictionary
-RH_EXTERN void kEncodeUnEmptyObjctToDic(NSMutableDictionary *dic,NSObject *object, NSString *key);
+RH_EXTERN void rhEncodeUnEmptyObjctToDic(NSMutableDictionary *dic,NSObject *object, NSString *key);
 
 
 

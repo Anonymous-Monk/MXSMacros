@@ -19,98 +19,87 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 屏幕 缩放比例
-RH_EXTERN CGFloat kScreenScale(void);
+RH_EXTERN CGFloat rhScreenScale(void);
 
 #pragma mark 屏幕 bounds
-RH_EXTERN CGRect kScrentBounds(void);
+RH_EXTERN CGRect rhScrentBounds(void);
 
 #pragma mark 屏幕 Size
-RH_EXTERN CGSize kScreenSize(void);
+RH_EXTERN CGSize rhScreenSize(void);
 
 #pragma mark 屏幕 width
-RH_EXTERN CGFloat kScreenWidth(void);
+RH_EXTERN CGFloat rhScreenWidth(void);
 
 #pragma mark 屏幕 height
-RH_EXTERN CGFloat kScreenHeight(void);
+RH_EXTERN CGFloat rhScreenHeight(void);
 
 #pragma mark 不同屏幕尺寸字体适配（375，667是因为效果图为IPHONE6 如果不是则根据实际情况修改）
-RH_EXTERN CGFloat kScreenWidthRatio(void);
-RH_EXTERN CGFloat kScreenHeightRatio(void);
-RH_EXTERN CGFloat kAdaptedWidth(CGFloat width);
-RH_EXTERN CGFloat kAdaptedHeight(CGFloat height);
-RH_EXTERN UIFont *kAdaptedFontSize(CGFloat fontSize);
+RH_EXTERN CGFloat rhScreenWidthRatio(void);
+RH_EXTERN CGFloat rhScreenHeightRatio(void);
+RH_EXTERN CGFloat rhAdaptedWidth(CGFloat width);
+RH_EXTERN CGFloat rhAdaptedHeight(CGFloat height);
+RH_EXTERN UIFont * rhAdaptedFontSize(CGFloat fontSize);
 
 #pragma mark 导航栏高度
-RH_EXTERN CGFloat kNaviBarHeight(void);
+RH_EXTERN CGFloat rhNaviBarHeight(void);
 
 #pragma mark 状态栏高度
-RH_EXTERN CGFloat kStatusBarHeight(void);
+RH_EXTERN CGFloat rhStatusBarHeight(void);
 
 #pragma mark 导航栏与状态栏高度
-RH_EXTERN CGFloat kStatusBarAndNavigationBarHeight(void);
+RH_EXTERN CGFloat rhStatusBarAndNavigationBarHeight(void);
 
 #pragma mark Tabbar高度
-RH_EXTERN CGFloat kTabbarHeight(void);
+RH_EXTERN CGFloat rhTabbarHeight(void);
 
 // iOS 11.0 的 view.safeAreaInsets
 #pragma mark Tabbar高度
-RH_EXTERN UIEdgeInsets kViewSafeAreaInsets(UIView *view);
+RH_EXTERN UIEdgeInsets rhViewSafeAreaInsets(UIView *view);
 
 // iOS 11 一下的 scrollview 的适配
-RH_EXTERN void kAdjustsScrollViewInsetNever(UIViewController *controller, UIScrollView *view);
+RH_EXTERN void rhAdjustsScrollViewInsetNever(UIViewController *controller, UIScrollView *view);
 
 
-/// Create an `ARGB` Bitmap context. Returns NULL if an error occurs.
-///
-/// @discussion The function is same as UIGraphicsBeginImageContextWithOptions(),
-/// but it doesn't push the context to UIGraphic, so you can retain the context for reuse.
+// Create an `ARGB` Bitmap context. Returns NULL if an error occurs.
+//
+// @discussion The function is same as UIGraphicsBeginImageContextWithOptions(),
+// but it doesn't push the context to UIGraphic, so you can retain the context for reuse.
 RH_EXTERN CGContextRef _Nullable RHCGContextCreateARGBBitmapContext(CGSize size, BOOL opaque, CGFloat scale);
 
-/// Create a `DeviceGray` Bitmap context. Returns NULL if an error occurs.
+//  Create a `DeviceGray` Bitmap context. Returns NULL if an error occurs.
 RH_EXTERN CGContextRef _Nullable RHCGContextCreateGrayBitmapContext(CGSize size, CGFloat scale);
 
-/// Convert degrees to radians.
+//把角度转换成弧度
 static inline CGFloat DegreesToRadians(CGFloat degrees) {
     return degrees * M_PI / 180;
 }
 
-/// Convert radians to degrees.
+//把弧度转换成角度
 static inline CGFloat RadiansToDegrees(CGFloat radians) {
     return radians * 180 / M_PI;
 }
 
-/// Get the transform's scale.x
+// Get the transform's scale.x
 static inline CGFloat CGAffineTransformGetScaleX(CGAffineTransform transform) {
     return  sqrt(transform.a * transform.a + transform.c * transform.c);
 }
 
-/// Get the transform's scale.y
+// Get the transform's scale.y
 static inline CGFloat CGAffineTransformGetScaleY(CGAffineTransform transform) {
     return sqrt(transform.b * transform.b + transform.d * transform.d);
 }
 
-/// Get the transform's translate.x
+// Get the transform's translate.x
 static inline CGFloat CGAffineTransformGetTranslateX(CGAffineTransform transform) {
     return transform.tx;
 }
 
-/// Get the transform's translate.y
+// Get the transform's translate.y
 static inline CGFloat CGAffineTransformGetTranslateY(CGAffineTransform transform) {
     return transform.ty;
 }
 
-/**
- If you have 3 pair of points transformed by a same CGAffineTransform:
- p1 (transform->) q1
- p2 (transform->) q2
- p3 (transform->) q3
- This method returns the original transform matrix from these 3 pair of points.
- 
- @see http://stackoverflow.com/questions/13291796/calculate-values-for-a-cgaffinetransform-from-three-points-in-each-of-two-uiview
- */
-RH_EXTERN CGAffineTransform RHCGAffineTransformGetFromPoints(CGPoint before[_Nonnull 3], CGPoint after[_Nonnull 3]);
-
-/// Create a skew transform.
+// Create a skew transform.
 static inline CGAffineTransform CGAffineTransformMakeSkew(CGFloat x, CGFloat y){
     CGAffineTransform transform = CGAffineTransformIdentity;
     transform.c = -x;
@@ -118,15 +107,15 @@ static inline CGAffineTransform CGAffineTransformMakeSkew(CGFloat x, CGFloat y){
     return transform;
 }
 
-/// Negates/inverts a UIEdgeInsets.
+// Negates/inverts a UIEdgeInsets.
 static inline UIEdgeInsets UIEdgeInsetsInvert(UIEdgeInsets insets) {
     return UIEdgeInsetsMake(-insets.top, -insets.left, -insets.bottom, -insets.right);
 }
 
-/// Convert CALayer's gravity string to UIViewContentMode.
+// Convert CALayer's gravity string to UIViewContentMode.
 RH_EXTERN UIViewContentMode RHCAGravityToUIViewContentMode(NSString *gravity);
 
-/// Convert UIViewContentMode to CALayer's gravity string.
+// Convert UIViewContentMode to CALayer's gravity string.
 RH_EXTERN NSString *RHUIViewContentModeToCAGravity(UIViewContentMode contentMode);
 
 
@@ -142,24 +131,24 @@ RH_EXTERN NSString *RHUIViewContentModeToCAGravity(UIViewContentMode contentMode
  */
 RH_EXTERN CGRect RHCGRectFitWithContentMode(CGRect rect, CGSize size, UIViewContentMode mode);
 
-/// Returns the center for the rectangle.
+// Returns the center for the rectangle.
 static inline CGPoint CGRectGetCenter(CGRect rect) {
     return CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
 }
 
-/// Returns the area of the rectangle.
+// Returns the area of the rectangle.
 static inline CGFloat CGRectGetArea(CGRect rect) {
     if (CGRectIsNull(rect)) return 0;
     rect = CGRectStandardize(rect);
     return rect.size.width * rect.size.height;
 }
 
-/// Returns the distance between two points.
+// Returns the distance between two points.
 static inline CGFloat CGPointGetDistanceToPoint(CGPoint p1, CGPoint p2) {
     return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
 }
 
-/// Returns the minmium distance between a point to a rectangle.
+// Returns the minmium distance between a point to a rectangle.
 static inline CGFloat CGPointGetDistanceToRect(CGPoint p, CGRect r) {
     r = CGRectStandardize(r);
     if (CGRectContainsPoint(r, p)) return 0;
@@ -179,105 +168,105 @@ static inline CGFloat CGPointGetDistanceToRect(CGPoint p, CGRect r) {
 
 
 
-/// Convert point to pixel.
+// Convert point to pixel.
 static inline CGFloat CGFloatToPixel(CGFloat value) {
-    return value * kScreenScale();
+    return value * rhScreenScale();
 }
 
-/// Convert pixel to point.
+// Convert pixel to point.
 static inline CGFloat CGFloatFromPixel(CGFloat value) {
-    return value / kScreenScale();
+    return value / rhScreenScale();
 }
 
 
 
-/// floor point value for pixel-aligned
+//  floor point value for pixel-aligned
 static inline CGFloat CGFloatPixelFloor(CGFloat value) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return floor(value * scale) / scale;
 }
 
-/// round point value for pixel-aligned
+// round point value for pixel-aligned
 static inline CGFloat CGFloatPixelRound(CGFloat value) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return round(value * scale) / scale;
 }
 
-/// ceil point value for pixel-aligned
+// ceil point value for pixel-aligned
 static inline CGFloat CGFloatPixelCeil(CGFloat value) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return ceil(value * scale) / scale;
 }
 
-/// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
+// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
 static inline CGFloat CGFloatPixelHalf(CGFloat value) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return (floor(value * scale) + 0.5) / scale;
 }
 
 
 
-/// floor point value for pixel-aligned
+// floor point value for pixel-aligned
 static inline CGPoint CGPointPixelFloor(CGPoint point) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGPointMake(floor(point.x * scale) / scale,
                        floor(point.y * scale) / scale);
 }
 
-/// round point value for pixel-aligned
+// round point value for pixel-aligned
 static inline CGPoint CGPointPixelRound(CGPoint point) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGPointMake(round(point.x * scale) / scale,
                        round(point.y * scale) / scale);
 }
 
-/// ceil point value for pixel-aligned
+// ceil point value for pixel-aligned
 static inline CGPoint CGPointPixelCeil(CGPoint point) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGPointMake(ceil(point.x * scale) / scale,
                        ceil(point.y * scale) / scale);
 }
 
-/// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
+// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
 static inline CGPoint CGPointPixelHalf(CGPoint point) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGPointMake((floor(point.x * scale) + 0.5) / scale,
                        (floor(point.y * scale) + 0.5) / scale);
 }
 
 
 
-/// floor point value for pixel-aligned
+// floor point value for pixel-aligned
 static inline CGSize CGSizePixelFloor(CGSize size) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGSizeMake(floor(size.width * scale) / scale,
                       floor(size.height * scale) / scale);
 }
 
-/// round point value for pixel-aligned
+// round point value for pixel-aligned
 static inline CGSize CGSizePixelRound(CGSize size) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGSizeMake(round(size.width * scale) / scale,
                       round(size.height * scale) / scale);
 }
 
-/// ceil point value for pixel-aligned
+// ceil point value for pixel-aligned
 static inline CGSize CGSizePixelCeil(CGSize size) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGSizeMake(ceil(size.width * scale) / scale,
                       ceil(size.height * scale) / scale);
 }
 
-/// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
+// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
 static inline CGSize CGSizePixelHalf(CGSize size) {
-    CGFloat scale = kScreenScale();
+    CGFloat scale = rhScreenScale();
     return CGSizeMake((floor(size.width * scale) + 0.5) / scale,
                       (floor(size.height * scale) + 0.5) / scale);
 }
 
 
 
-/// floor point value for pixel-aligned
+// floor point value for pixel-aligned
 static inline CGRect CGRectPixelFloor(CGRect rect) {
     CGPoint origin = CGPointPixelCeil(rect.origin);
     CGPoint corner = CGPointPixelFloor(CGPointMake(rect.origin.x + rect.size.width,
@@ -288,7 +277,7 @@ static inline CGRect CGRectPixelFloor(CGRect rect) {
     return ret;
 }
 
-/// round point value for pixel-aligned
+// round point value for pixel-aligned
 static inline CGRect CGRectPixelRound(CGRect rect) {
     CGPoint origin = CGPointPixelRound(rect.origin);
     CGPoint corner = CGPointPixelRound(CGPointMake(rect.origin.x + rect.size.width,
@@ -296,7 +285,7 @@ static inline CGRect CGRectPixelRound(CGRect rect) {
     return CGRectMake(origin.x, origin.y, corner.x - origin.x, corner.y - origin.y);
 }
 
-/// ceil point value for pixel-aligned
+// ceil point value for pixel-aligned
 static inline CGRect CGRectPixelCeil(CGRect rect) {
     CGPoint origin = CGPointPixelFloor(rect.origin);
     CGPoint corner = CGPointPixelCeil(CGPointMake(rect.origin.x + rect.size.width,
@@ -304,7 +293,7 @@ static inline CGRect CGRectPixelCeil(CGRect rect) {
     return CGRectMake(origin.x, origin.y, corner.x - origin.x, corner.y - origin.y);
 }
 
-/// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
+// round point value to .5 pixel for path stroke (odd pixel line width pixel-aligned)
 static inline CGRect CGRectPixelHalf(CGRect rect) {
     CGPoint origin = CGPointPixelHalf(rect.origin);
     CGPoint corner = CGPointPixelHalf(CGPointMake(rect.origin.x + rect.size.width,
@@ -314,7 +303,7 @@ static inline CGRect CGRectPixelHalf(CGRect rect) {
 
 
 
-/// floor UIEdgeInset for pixel-aligned
+// floor UIEdgeInset for pixel-aligned
 static inline UIEdgeInsets UIEdgeInsetPixelFloor(UIEdgeInsets insets) {
     insets.top = CGFloatPixelFloor(insets.top);
     insets.left = CGFloatPixelFloor(insets.left);
@@ -323,7 +312,7 @@ static inline UIEdgeInsets UIEdgeInsetPixelFloor(UIEdgeInsets insets) {
     return insets;
 }
 
-/// ceil UIEdgeInset for pixel-aligned
+// ceil UIEdgeInset for pixel-aligned
 static inline UIEdgeInsets UIEdgeInsetPixelCeil(UIEdgeInsets insets) {
     insets.top = CGFloatPixelCeil(insets.top);
     insets.left = CGFloatPixelCeil(insets.left);
