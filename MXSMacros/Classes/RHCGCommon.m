@@ -88,6 +88,11 @@ RH_EXTERN CGFloat rhTabbarHeight(void) {
     return [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49;
 }
 
+#pragma mark Tabbar SafeBottomMargin
+RH_EXTERN CGFloat rhTabbarSafeBottomMargin(void) {
+    return [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 34 : 0;
+}
+
 
 // iOS 11.0 的 view.safeAreaInsets
 RH_EXTERN UIEdgeInsets rhViewSafeAreaInsets(UIView *view) {

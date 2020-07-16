@@ -31,8 +31,6 @@ RH_EXTERN BOOL isIOS11(void);
 
 RH_EXTERN BOOL isIPhoneX(void);
 
-RH_EXTERN BOOL isIPhoneX(void);
-
 RH_EXTERN BOOL isiPhoneXMax(void);
 
 #pragma mark AppDelegate对象

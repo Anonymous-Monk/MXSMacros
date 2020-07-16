@@ -52,6 +52,9 @@ RH_EXTERN CGFloat rhStatusBarAndNavigationBarHeight(void);
 #pragma mark Tabbar高度
 RH_EXTERN CGFloat rhTabbarHeight(void);
 
+#pragma mark Tabbar SafeBottomMargin
+RH_EXTERN CGFloat rhTabbarSafeBottomMargin(void);
+
 // iOS 11.0 的 view.safeAreaInsets
 #pragma mark Tabbar高度
 RH_EXTERN UIEdgeInsets rhViewSafeAreaInsets(UIView *view);
