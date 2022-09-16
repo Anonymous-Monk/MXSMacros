@@ -75,7 +75,19 @@ RH_EXTERN CGFloat rhNaviBarHeight(void) {
 
 //状态栏高度
 RH_EXTERN CGFloat rhStatusBarHeight(void) {
-    return [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat statusBarHeight = 0;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        statusBarHeight = rhKeyWindow().windowScene.statusBarManager.statusBarFrame.size.height;
+
+    } else
+#endif
+    {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+        statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+#endif
+    }
+    return statusBarHeight;
 }
 
 //导航栏与状态栏高度
@@ -85,12 +97,12 @@ RH_EXTERN CGFloat rhStatusBarAndNavigationBarHeight(void) {
 
 //tabbar高度
 RH_EXTERN CGFloat rhTabbarHeight(void) {
-    return [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49;
+    return rhStatusBarHeight() > 20 ? 83 : 49;
 }
 
 #pragma mark Tabbar SafeBottomMargin
 RH_EXTERN CGFloat rhTabbarSafeBottomMargin(void) {
-    return [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 34 : 0;
+    return rhStatusBarHeight() > 20 ? 34 : 0;
 }
 
 
