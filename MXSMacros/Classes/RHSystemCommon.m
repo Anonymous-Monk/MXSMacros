@@ -57,7 +57,7 @@ RH_EXTERN BOOL isiPhoneXMax(void) {
 }
 
 RH_EXTERN BOOL isIPad(void) {
-    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
 
 
@@ -75,10 +75,9 @@ RH_EXTERN UIApplication * rhApplication(void) {
 RH_EXTERN UIWindow * rhKeyWindow(void) {
     static __weak UIWindow *cachedKeyWindow = nil;
     
-    /*  (Bug ID: #23, #25, #73)   */
     UIWindow *originalKeyWindow = nil;
-
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
         NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
         for (UIScene *scene in connectedScenes) {
@@ -93,13 +92,13 @@ RH_EXTERN UIWindow * rhKeyWindow(void) {
             }
         }
     } else
-    #endif
+#endif
     {
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
         originalKeyWindow = [UIApplication sharedApplication].keyWindow;
-    #endif
+#endif
     }
-
+    
     //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
     if (originalKeyWindow)
     {
@@ -155,18 +154,22 @@ RH_EXTERN void rhOpenURL(NSString *url) {
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{}
                                      completionHandler:^(BOOL success) {
-                                         if (success) {
-                                             RHLog(@"更新链接链接成功");
-                                         }
-                                     }];
+                if (success) {
+                    RHLog(@"更新链接链接成功");
+                }
+            }];
         } else {
             // Fallback on earlier versions
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-            
+#pragma clang diagnostic pop
         }
     } else {
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+#pragma clang diagnostic pop
     }
 }
 

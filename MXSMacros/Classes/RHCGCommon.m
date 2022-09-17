@@ -14,20 +14,35 @@ RH_EXTERN CGFloat rhScreenScale() {
     static CGFloat scale;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        scale = [UIScreen mainScreen].scale;
+        if (@available(iOS 16.0, *)) {
+            UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
+            scale = scene.screen.scale;
+        }else {
+            scale = [UIScreen mainScreen].scale;
+        }
     });
     return scale;
 }
 
 RH_EXTERN CGRect rhScrentBounds(void) {
-    return [[UIScreen mainScreen] bounds];
+    if (@available(iOS 16.0, *)) {
+        UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
+        return scene.screen.bounds;
+    }else {
+        return [[UIScreen mainScreen] bounds];
+    }
 }
 
 RH_EXTERN CGSize rhScreenSize() {
     static CGSize size;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        size = [UIScreen mainScreen].bounds.size;
+        if (@available(iOS 16.0, *)) {
+            UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
+            size = scene.screen.bounds.size;
+        }else {
+            size = [UIScreen mainScreen].bounds.size;
+        }
         if (size.height < size.width) {
             CGFloat tmp = size.height;
             size.height = size.width;
@@ -79,7 +94,6 @@ RH_EXTERN CGFloat rhStatusBarHeight(void) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
         statusBarHeight = rhKeyWindow().windowScene.statusBarManager.statusBarFrame.size.height;
-
     } else
 #endif
     {
