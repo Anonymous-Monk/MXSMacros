@@ -248,7 +248,7 @@
 				ORGANIZATIONNAME = "Anonymous-Monk";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 8A6RX3FU7V;
+						DevelopmentTeam = 643752D9CA;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -489,7 +489,7 @@
 			baseConfigurationReference = D72E78A2CE821E5C60B32191 /* Pods-MXSMacros_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8A6RX3FU7V;
+				DEVELOPMENT_TEAM = 643752D9CA;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MXSMacros/MXSMacros-Prefix.pch";
 				INFOPLIST_FILE = "MXSMacros/MXSMacros-Info.plist";
@@ -506,7 +506,7 @@
 			baseConfigurationReference = B75A2310A216169D192275E0 /* Pods-MXSMacros_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8A6RX3FU7V;
+				DEVELOPMENT_TEAM = 643752D9CA;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MXSMacros/MXSMacros-Prefix.pch";
 				INFOPLIST_FILE = "MXSMacros/MXSMacros-Info.plist";

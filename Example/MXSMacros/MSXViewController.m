@@ -7,6 +7,7 @@
 //
 
 #import "MSXViewController.h"
+#import <MXSMacros/MXSMacros-umbrella.h>
 
 @interface MSXViewController ()
 
@@ -18,6 +19,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = [UIColor redColor];
+    UIWindow *window = rhKeyWindow();
+    RHLog(@"isIPad:%@",isIPad()?@"是":@"否");
+    RHLog(@"rhKeyWindow:%@",window);
+    RHLog(@"rhScreenWidth:%f",rhScreenWidth());
+    RHLog(@"rhScreenHeight:%f",rhScreenHeight());
+    RHLog(@"rhStatusBarHeight:%f",rhStatusBarHeight());
+    
 }
 
 - (void)didReceiveMemoryWarning

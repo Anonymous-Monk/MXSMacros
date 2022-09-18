@@ -14,7 +14,7 @@ RH_EXTERN CGFloat rhScreenScale() {
     static CGFloat scale;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (@available(iOS 16.0, *)) {
+        if (@available(iOS 13.0, *)) {
             UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
             scale = scene.screen.scale;
         }else {
@@ -25,7 +25,7 @@ RH_EXTERN CGFloat rhScreenScale() {
 }
 
 RH_EXTERN CGRect rhScrentBounds(void) {
-    if (@available(iOS 16.0, *)) {
+    if (@available(iOS 13.0, *)) {
         UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
         return scene.screen.bounds;
     }else {
@@ -37,7 +37,7 @@ RH_EXTERN CGSize rhScreenSize() {
     static CGSize size;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (@available(iOS 16.0, *)) {
+        if (@available(iOS 13.0, *)) {
             UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
             size = scene.screen.bounds.size;
         }else {
@@ -54,10 +54,22 @@ RH_EXTERN CGSize rhScreenSize() {
 
 
 RH_EXTERN CGFloat rhScreenWidth(void) {
-    return (([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height;
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
+        return UIInterfaceOrientationIsPortrait(scene.interfaceOrientation) ? rhScreenSize().width : rhScreenSize().height;
+    }else {
+        
+        return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? rhScreenSize().width : rhScreenSize().height;
+    }
 }
 RH_EXTERN CGFloat rhScreenHeight(void) {
-    return ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width);
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] allObjects].firstObject;
+        return UIInterfaceOrientationIsPortrait(scene.interfaceOrientation) ? rhScreenSize().height : rhScreenSize().width;
+    }else {
+        return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? rhScreenSize().height : rhScreenSize().width;
+    }
+    
 }
 
 
@@ -90,18 +102,14 @@ RH_EXTERN CGFloat rhNaviBarHeight(void) {
 
 //状态栏高度
 RH_EXTERN CGFloat rhStatusBarHeight(void) {
-    CGFloat statusBarHeight = 0;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
-        statusBarHeight = rhKeyWindow().windowScene.statusBarManager.statusBarFrame.size.height;
-    } else
-#endif
-    {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
-        statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-#endif
+        NSSet *set = [UIApplication sharedApplication].connectedScenes;
+        UIWindowScene *windowScene = [set anyObject];
+        UIStatusBarManager *statusBarManager = windowScene.statusBarManager;
+        return statusBarManager.statusBarFrame.size.height;
+    }else {
+        return [[UIApplication sharedApplication] statusBarFrame].size.height;;
     }
-    return statusBarHeight;
 }
 
 //导航栏与状态栏高度

@@ -33,6 +33,8 @@ RH_EXTERN BOOL isIPhoneX(void);
 
 RH_EXTERN BOOL isiPhoneXMax(void);
 
+RH_EXTERN BOOL isIPad(void);
+
 #pragma mark AppDelegate对象
 RH_EXTERN id rhAppDelegateInstance(void);
 
